@@ -1,6 +1,5 @@
 // External Modules
-const express = require("express");
-const cors = require("cors");
+import express from "express";
 
 // Local Modules
 const connectDB = require("./utils/db");
