@@ -1,0 +1,17 @@
+info:
+  name: Delete other User Post
+  type: http
+  seq: 2
+
+http:
+  method: DELETE
+  url: "{{base_url}}/api/posts/69f2f8954e339d87896a2e6a"
+  auth:
+    type: bearer
+    token: "{{token}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

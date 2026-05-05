@@ -1,0 +1,15 @@
+info:
+  name: Delete Post Without Login
+  type: http
+  seq: 1
+
+http:
+  method: DELETE
+  url: "{{base_url}}/api/posts/69f2dffcd54b513288864d4a"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
