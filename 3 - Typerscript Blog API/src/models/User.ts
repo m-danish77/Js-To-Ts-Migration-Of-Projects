@@ -1,7 +1,13 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import bcrypt from "bcrypt";
 
-const userSchema = new mongoose.Schema({
+export interface IUser extends Document {
+  username: string;
+  email: string;
+  password: string;
+}
+
+const userSchema = new mongoose.Schema<IUser>({
   username: {
     type: String,
     trim: true,
@@ -19,16 +25,19 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.pre("save", async function () {
+userSchema.pre<IUser>("save", async function () {
   if (!this.isModified("password")) return;
   try {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
   } catch (e) {
-    throw new Error(e);
+    const message = e instanceof Error ? e.message : "Password Hashing Failed";
+    throw new Error(message);
   }
 });
 
-const User = mongoose.models.User || mongoose.model("User", userSchema);
+const User =
+  (mongoose.models.User as mongoose.Model<IUser>) ||
+  mongoose.model<IUser>("User", userSchema);
 
 export default User;

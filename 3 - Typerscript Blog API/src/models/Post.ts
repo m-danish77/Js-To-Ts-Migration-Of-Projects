@@ -1,6 +1,15 @@
 import mongoose from "mongoose";
 
-const postSchema = new mongoose.Schema(
+// exporting interface IUser, not the User model
+import { IUser } from "./User.js";
+
+export interface IPost extends Document {
+  title: string;
+  content: string;
+  author: mongoose.Schema.Types.ObjectId | IUser;
+}
+
+const postSchema = new mongoose.Schema<IPost>(
   {
     title: {
       type: String,
@@ -18,6 +27,8 @@ const postSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-const Post = mongoose.models.Post || mongoose.model("Post", postSchema);
+const Post =
+  (mongoose.models.Post as mongoose.Model<IPost>) ||
+  mongoose.model<IPost>("Post", postSchema);
 
 export default Post;

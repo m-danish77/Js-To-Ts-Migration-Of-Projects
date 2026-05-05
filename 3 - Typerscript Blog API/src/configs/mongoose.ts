@@ -2,12 +2,16 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 
-const connectDB = async () => {
+const connectDB = async (): Promise<void> => {
   try {
-    await mongoose.connect(process.env.ATLAS_URI);
+    const uri = process.env.ATLAS_URI;
+    if (!uri) {
+      throw new Error("ATLAS_URI is not defined in .env file.");
+    }
+    await mongoose.connect(uri);
     console.log("Mongodb Connected");
   } catch (err) {
-    console.log(err.message);
+    console.log((err as Error).message);
     process.exit(1);
   }
 };
