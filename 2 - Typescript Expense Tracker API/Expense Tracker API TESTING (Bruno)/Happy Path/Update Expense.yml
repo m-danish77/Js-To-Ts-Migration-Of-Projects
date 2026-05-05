@@ -1,0 +1,41 @@
+info:
+  name: Update Expense
+  type: http
+  seq: 6
+
+http:
+  method: PUT
+  url: http://localhost:3000/api/expenses/69efba2d38d3d497f7fe9967
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "title": "Lunch (Updated)",
+        "amount": 20
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        test("Should return 200 OK", function() {
+          expect(res.getStatus()).to.equal(200);
+        });
+
+        test("Title should be updated", function() {
+          expect(res.getBody().title).to.equal("Lunch (Updated)");
+        });
+
+        test("Amount should be updated", function() {
+          expect(res.getBody().amount).to.equal(20);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

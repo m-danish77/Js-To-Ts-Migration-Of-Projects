@@ -1,0 +1,25 @@
+info:
+  name: Date Range Filtering
+  type: http
+  seq: 3
+
+http:
+  method: GET
+  url: http://localhost:3000/api/expenses?category=Food&startDate=2026-04-27&endDate=2026-04-28
+  params:
+    - name: category
+      value: Food
+      type: query
+    - name: startDate
+      value: 2026-04-27
+      type: query
+    - name: endDate
+      value: 2026-04-28
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

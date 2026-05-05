@@ -1,0 +1,30 @@
+info:
+  name: Update Expense - Field Validation
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: http://localhost:3000/api/expenses/69f0b46c71df7c14cca7ae5c
+  body:
+    type: json
+    data: |-
+      {
+        "amount": -500
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        test("Should reject negative amounts during update", function() {
+          // If your model has min: 0, this should fail
+          expect(res.getStatus()).to.be.oneOf([400, 404]); 
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

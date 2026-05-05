@@ -1,0 +1,31 @@
+info:
+  name: Create Expense - Invalid Data Types
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://localhost:3000/api/expenses
+  body:
+    type: json
+    data: |-
+      {
+        "title": "Lunch",
+        "amount": "abc", 
+        "category": "Food"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        test("Should return 400 for invalid data type", function() {
+          expect(res.getStatus()).to.equal(400);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

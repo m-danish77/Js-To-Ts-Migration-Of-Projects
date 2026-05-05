@@ -1,0 +1,38 @@
+info:
+  name: Create Expense
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:3000/api/expenses
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "title": "Chips",
+        "amount": 100,
+        "category": "Food"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        test("Should return 201 Created", function() {
+          expect(res.getStatus()).to.equal(201);
+        });
+
+        test("Response should contain an _id", function() {
+          expect(res.getBody()._id).to.be.a('string');
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

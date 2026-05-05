@@ -33,6 +33,6 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "Expense Tracker API TESTING (Bruno)"],
   "exclude": ["node_modules"],
 }

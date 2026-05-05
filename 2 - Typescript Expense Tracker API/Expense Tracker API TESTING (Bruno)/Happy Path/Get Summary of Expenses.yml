@@ -1,0 +1,30 @@
+info:
+  name: Get Summary of Expenses
+  type: http
+  seq: 5
+
+http:
+  method: GET
+  url: http://localhost:3000/api/expenses/summary
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        test("Should return 200 OK", function() {
+          expect(res.getStatus()).to.equal(200);
+        });
+
+        test("Should return totalExpensesAmount and numberOfExpenses", function() {
+          const data = res.getBody();
+          expect(data).to.have.property('totalExpensesAmount');
+          expect(data).to.have.property('numberOfExpenses');
+          expect(data.totalExpensesAmount).to.be.a('number');
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

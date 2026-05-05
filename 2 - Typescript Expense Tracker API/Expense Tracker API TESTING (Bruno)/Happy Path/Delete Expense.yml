@@ -1,0 +1,23 @@
+info:
+  name: Delete Expense
+  type: http
+  seq: 4
+
+http:
+  method: DELETE
+  url: http://localhost:3000/api/expenses/69efa9ec92bbfd2d17b38dc4
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Should return 200 or 204", () => {
+          expect([200, 204]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

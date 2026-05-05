@@ -1,0 +1,25 @@
+info:
+  name: Pagination
+  type: http
+  seq: 7
+
+http:
+  method: GET
+  url: http://localhost:3000/api/expenses?category=Food&limitValue=5&page=1
+  params:
+    - name: category
+      value: Food
+      type: query
+    - name: limitValue
+      value: "5"
+      type: query
+    - name: page
+      value: "1"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

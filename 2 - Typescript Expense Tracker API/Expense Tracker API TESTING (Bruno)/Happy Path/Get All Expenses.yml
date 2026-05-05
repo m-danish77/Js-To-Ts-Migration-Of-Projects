@@ -1,0 +1,22 @@
+info:
+  name: Get All Expenses
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: http://localhost:3000/api/expenses
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        test("Should return 200 OK", () => expect(res.status).to.equal(200));
+        test("Should return an array", () => expect(res.getBody()).to.be.an('array'));
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
