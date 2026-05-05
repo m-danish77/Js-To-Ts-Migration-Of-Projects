@@ -1,5 +1,5 @@
 // External Mondules
-import express from "express";
+import express, { Request, Response } from "express";
 
 // Local modules
 import connectDB from "./configs/mongoose.js";
@@ -15,14 +15,14 @@ app.use("/api/auth", authRouter);
 app.use("/api/posts", postsRouter);
 
 // Error Controller
-app.use((req, res) => {
+app.use((req: Request, res: Response) => {
   return res
     .status(404)
     .json({ message: "404 error. Requested Url not found" });
 });
 
 const port = process.env.PORT || 3000;
-const startSever = async () => {
+const startSever = async (): Promise<void> => {
   await connectDB();
   app.listen(port, () => {
     console.log(`Server is running at address of http://localhost:${port}`);

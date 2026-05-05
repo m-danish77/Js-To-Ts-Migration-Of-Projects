@@ -1,12 +1,9 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 
-// exporting interface IUser, not the User model
-import { IUser } from "./User.js";
-
-export interface IPost extends Document {
+interface IPost extends Document {
   title: string;
   content: string;
-  author: mongoose.Schema.Types.ObjectId | IUser;
+  author: mongoose.Types.ObjectId;
 }
 
 const postSchema = new mongoose.Schema<IPost>(
